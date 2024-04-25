@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 
-public class Hashing_Search {
+public class Hashing_Search_Map {
 
     public static void main(String[] args) {
 
