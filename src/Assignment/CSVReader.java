@@ -2,13 +2,15 @@ package Assignment;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class CSVReader {
 	private int urlCount;
-	private final String filePath = "src/url.csv"; 
+	private final String filePath = "src/MockURL.csv"; 
     
     public void readAndPrintURLs(int numURLs) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -28,6 +30,29 @@ public class CSVReader {
         }
     }
     
+    public  String[] readAndPrintURLs2( int numURLs) throws IOException {
+    	List<String> urlList = new ArrayList<>();
+    	
+    	try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            // Skip the first line (title)
+            reader.readLine();
+            
+            String line;
+            int count = 1;
+            System.out.println("\n==================================");
+            System.out.println("          Index\tURL");
+            System.out.println("==================================");
+            while ((line = reader.readLine()) != null && count <= numURLs) {
+                // Print the index and URL
+                System.out.println(count + "\t" + line.trim());
+                urlList.add(line.trim());
+                count++;
+            }
+                                
+            String[] urls = new String[urlList.size()];
+            return urlList.toArray(urls);
+        }
+    }   
     public int getUrlCount() {
        return urlCount-1;
     }

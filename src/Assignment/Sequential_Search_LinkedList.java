@@ -18,7 +18,7 @@ public class Sequential_Search_LinkedList {
 
         try {
             CSVReader reader = new CSVReader();
-            readAndPrintURLs(reader.getFilePath(),1000);
+            readAndPrintURLs(reader.getFilePath(),10);
 
             int totalUrls = urlCount();
             System.out.println("\n=======================================");
