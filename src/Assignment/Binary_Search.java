@@ -18,7 +18,7 @@ public class Binary_Search {
 
         try {
             CSVReader reader = new CSVReader();
-            readAndPrintURLs(reader.getFilePath(),100000);
+            readAndPrintURLs(reader.getFilePath(),10);
 
             int totalUrls = urlCount();
             System.out.println("\n=======================================");
@@ -121,8 +121,6 @@ public class Binary_Search {
     	urlLinkedList = new LinkedList<>();
     	
     	try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            // Skip the first line (title)
-            reader.readLine();
             
             String line;
             int count = 1;

@@ -34,8 +34,6 @@ public class CSVReader {
     	List<String> urlList = new ArrayList<>();
     	
     	try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            // Skip the first line (title)
-            reader.readLine();
             
             String line;
             int count = 1;

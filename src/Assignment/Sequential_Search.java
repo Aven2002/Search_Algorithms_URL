@@ -18,7 +18,7 @@ public class Sequential_Search {
 
         try {
             CSVReader reader = new CSVReader();
-            readAndPrintURLs(reader.getFilePath(), 100000);
+            readAndPrintURLs(reader.getFilePath(), 10);
 
             int totalUrls = urlCount();
             System.out.println("\n=======================================");
@@ -120,7 +120,7 @@ public class Sequential_Search {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             String line;
-            int count = 0;
+            int count = 1;
             System.out.println("\n==================================");
             System.out.println("          Index\tURL");
             System.out.println("==================================");
