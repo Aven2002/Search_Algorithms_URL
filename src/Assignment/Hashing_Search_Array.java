@@ -9,7 +9,7 @@ public class Hashing_Search_Array {
     public static void main(String[] args) {
         try {
             CSVReader reader = new CSVReader();
-            String[] urlArray = reader.readAndPrintURLs2(10); // Assuming readData returns an array of URLs
+            String[] urlArray = reader.printAndReturnURLs(100000); 
 
             int totalUrls = urlArray.length;
             System.out.println("\n=======================================");
@@ -37,13 +37,13 @@ public class Hashing_Search_Array {
                 int index = sc.nextInt();
                 if (index == -1) {
                     continueLoop = false;
-                } else if (index < 0 || index > urlArray.length) {
+                } else if (index <= 0 || index > urlArray.length) {
                     System.out.println("\n======================================================================");
                     System.out.println(" Error Message : The position " + index + " of URL is out of bound ");
                     System.out.println("======================================================================\n");
                 } else {
+                	String value = urlArray[index-1];
                     long startTime = System.nanoTime();
-                    String value = urlArray[index-1];
                     long endTime = System.nanoTime();
                     long elapsedTimeHash = endTime - startTime; // Calculate elapsed time for this search
 

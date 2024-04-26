@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Sequential_Search_LinkedList {
+public class Binary_Search {
     private static String[] urlArray;
     private static LinkedList<String> urlLinkedList;
 
@@ -18,7 +18,7 @@ public class Sequential_Search_LinkedList {
 
         try {
             CSVReader reader = new CSVReader();
-            readAndPrintURLs(reader.getFilePath(),10);
+            readAndPrintURLs(reader.getFilePath(),100000);
 
             int totalUrls = urlCount();
             System.out.println("\n=======================================");
@@ -48,16 +48,16 @@ public class Sequential_Search_LinkedList {
                     } else {
                         // Declaration
                         long startArray = System.nanoTime();
-                        String urlArray = sequentialSearch(position);
+                        String urlArrayResult = binarySearchArray(position);
                         long finishArray = System.nanoTime();
                         long elapsedTimeArray = finishArray - startArray;
 
                         long startLinkedList = System.nanoTime();
-                        String urlLinkedList = sequentialSearchLinkedList(position);
+                        String urlLinkedListResult = binarySearchLinkedList(position);
                         long finishLinkedList = System.nanoTime();
                         long elapsedTimeLinkedList = finishLinkedList - startLinkedList;
 
-                        if (urlArray != null && urlLinkedList != null) {
+                        if (urlArrayResult != null && urlLinkedListResult != null) {
 
                             // Calculation
                             totalElapsedTimeArray += elapsedTimeArray;
@@ -69,11 +69,11 @@ public class Sequential_Search_LinkedList {
                             System.out.println("\n================================================================================================");
                             System.out.println(" Array: ");
                             System.out.println("   Index        : " + position);
-                            System.out.println("   URL          : " + urlArray);
+                            System.out.println("   URL          : " + urlArrayResult);
                             System.out.println("   Elapsed Time : " + elapsedTimeArray + " ns\n");
                             System.out.println(" Linked List: ");
                             System.out.println("   Index        : " + position);
-                            System.out.println("   URL          : " + urlLinkedList);
+                            System.out.println("   URL          : " + urlLinkedListResult);
                             System.out.println("   Elapsed Time : " + elapsedTimeLinkedList + " ns");
                             System.out.println("===============================================================================================\n");
                         }
@@ -140,19 +140,44 @@ public class Sequential_Search_LinkedList {
         }
         return urlArray.length;
     }
-    public static String sequentialSearch(int position) {
+
+    public static String binarySearchArray(int position) {
         if (urlArray == null || position < 1 || position > urlArray.length) {
             return null;
         }
 
-        return urlArray[position - 1];
+        int left = 0;
+        int right = urlArray.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid == position - 1) {
+                return urlArray[mid];
+            } else if (mid < position - 1) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return null; // Target not found
     }
 
-    public static String sequentialSearchLinkedList(int position) {
+    public static String binarySearchLinkedList(int position) {
         if (urlLinkedList == null || position < 1 || position > urlLinkedList.size()) {
             return null;
         }
 
-        return urlLinkedList.get(position - 1);
+        int left = 0;
+        int right = urlLinkedList.size() - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (mid == position - 1) {
+                return urlLinkedList.get(mid);
+            } else if (mid < position - 1) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return null; // Target not found
     }
 }

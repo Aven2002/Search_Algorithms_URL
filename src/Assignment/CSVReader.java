@@ -30,7 +30,7 @@ public class CSVReader {
         }
     }
     
-    public  String[] readAndPrintURLs2( int numURLs) throws IOException {
+    public  String[] printAndReturnURLs( int numURLs) throws IOException {
     	List<String> urlList = new ArrayList<>();
     	
     	try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -52,7 +52,21 @@ public class CSVReader {
             String[] urls = new String[urlList.size()];
             return urlList.toArray(urls);
         }
-    }   
+    }  
+    
+   public LinkedList<String> readDataIntoLinkedList(int numURLs) throws IOException {
+        LinkedList<String> list = new LinkedList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        	 reader.readLine();
+            String line;
+            int count = 1;
+            while ((line = reader.readLine()) != null && count<=numURLs) {
+                list.add(line.trim());
+            }
+        }
+        return list;
+    }
+    
     public int getUrlCount() {
        return urlCount-1;
     }
