@@ -26,56 +26,58 @@ public class Binary_Search {
             System.out.println("=======================================\n");
 
             boolean continueSearching = true;
+            String targetUrl;
             int numSearches = 0;
-            int position = 0;
+            int position;
             long totalElapsedTimeArray = 0;
             long totalElapsedTimeLinkedList = 0;
             long maxElapsedTimeArray = Long.MIN_VALUE;
             long maxElapsedTimeLinkedList = Long.MIN_VALUE;
 
             do {
-                numSearches++;
                 try {
-                    System.out.print("Kindly enter the URL index to retrieve (enter -1 to terminate): ");
-                    position = scanner.nextInt();
-                    scanner.nextLine();
+                	System.out.print("\nKindly enter the URL to retrieve its position (enter 'exit' to terminate): ");
+                    targetUrl = scanner.nextLine();
+                    if (targetUrl.equalsIgnoreCase("exit")) {
+                    	continueSearching = false;
+                    }   
+                    position = searchInArray(targetUrl, urlArray);
                     if (position == -1) {
-                        continueSearching = false;
-                    } else if (position < 1 || position > totalUrls) {
-                        System.out.println("\n======================================================================");
-                        System.out.println(" Error Message : The position " + position + " of URL is out of bound ");
-                        System.out.println("======================================================================\n");
+                        System.out.println("\n======================================================");
+                        System.out.println(" Error Message : The URL is not found in the data set");
+                        System.out.println("======================================================\n");
                     } else {
-                        // Declaration
-                        long startArray = System.nanoTime();
-                        String urlArrayResult = binarySearchArray(position);
-                        long finishArray = System.nanoTime();
-                        long elapsedTimeArray = finishArray - startArray;
-
-                        long startLinkedList = System.nanoTime();
-                        String urlLinkedListResult = binarySearchLinkedList(position);
-                        long finishLinkedList = System.nanoTime();
-                        long elapsedTimeLinkedList = finishLinkedList - startLinkedList;
-
-                        if (urlArrayResult != null && urlLinkedListResult != null) {
-
-                            // Calculation
-                            totalElapsedTimeArray += elapsedTimeArray;
-                            totalElapsedTimeLinkedList += elapsedTimeLinkedList;
-                            maxElapsedTimeArray = Math.max(maxElapsedTimeArray, elapsedTimeArray);
-                            maxElapsedTimeLinkedList = Math.max(maxElapsedTimeLinkedList, elapsedTimeLinkedList);
-
-                            // Display Result
-                            System.out.println("\n================================================================================================");
-                            System.out.println(" Array: ");
-                            System.out.println("   Index        : " + position);
-                            System.out.println("   URL          : " + urlArrayResult);
-                            System.out.println("   Elapsed Time : " + elapsedTimeArray + " ns\n");
-                            System.out.println(" Linked List: ");
-                            System.out.println("   Index        : " + position);
-                            System.out.println("   URL          : " + urlLinkedListResult);
-                            System.out.println("   Elapsed Time : " + elapsedTimeLinkedList + " ns");
-                            System.out.println("===============================================================================================\n");
+	                        // Declaration
+	                        long startArray = System.nanoTime();
+	                        long startLinkedList = System.nanoTime();
+	                        String urlArrayResult = binarySearchArray(position);
+	                        long finishArray = System.nanoTime();
+	                        long elapsedTimeArray = finishArray - startArray;
+	                       
+	                        String urlLinkedListResult = binarySearchLinkedList(position);
+	                        long finishLinkedList = System.nanoTime();
+	                        long elapsedTimeLinkedList = finishLinkedList - startLinkedList;
+	
+	                        if (urlArrayResult != null && urlLinkedListResult != null) {
+	
+	                            // Calculation
+	                            totalElapsedTimeArray += elapsedTimeArray;
+	                            totalElapsedTimeLinkedList += elapsedTimeLinkedList;
+	                            maxElapsedTimeArray = Math.max(maxElapsedTimeArray, elapsedTimeArray);
+	                            maxElapsedTimeLinkedList = Math.max(maxElapsedTimeLinkedList, elapsedTimeLinkedList);
+	
+	                            // Display Result
+	                            System.out.println("\n================================================================================================");
+	                            System.out.println(" Array: ");
+	                            System.out.println("   Index        : " + position);
+	                            System.out.println("   URL          : " + urlArrayResult);
+	                            System.out.println("   Elapsed Time : " + elapsedTimeArray + " ns\n");
+	                            System.out.println(" Linked List: ");
+	                            System.out.println("   Index        : " + position);
+	                            System.out.println("   URL          : " + urlLinkedListResult);
+	                            System.out.println("   Elapsed Time : " + elapsedTimeLinkedList + " ns");
+	                            System.out.println("===============================================================================================\n");
+	                            numSearches++;
                         }
                     }
                 } catch (InputMismatchException e) {
@@ -97,7 +99,7 @@ public class Binary_Search {
 
             System.out.println(" Max time (Worst Case) ");
             System.out.println("   Array         : " + maxElapsedTimeArray + " ns");
-            System.out.println("   Linked List   : " + maxElapsedTimeLinkedList + " n");
+            System.out.println("   Linked List   : " + maxElapsedTimeLinkedList + " ns");
             System.out.println("===============================================================================================\n");
             System.out.println("Console terminated ......");
             scanner.close();
@@ -179,5 +181,14 @@ public class Binary_Search {
             }
         }
         return null; // Target not found
+    }
+    
+    private static int searchInArray(String targetUrl, String[] urlArray) {
+        for (int i = 0; i < urlArray.length; i++) {
+            if (urlArray[i].equals(targetUrl)) {
+                return i + 1; // Position starts from 1
+            }
+        }
+        return -1; // URL not found
     }
 }
