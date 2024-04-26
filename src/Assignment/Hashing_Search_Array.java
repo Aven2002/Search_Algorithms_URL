@@ -9,7 +9,7 @@ public class Hashing_Search_Array {
     public static void main(String[] args) {
         try {
             CSVReader reader = new CSVReader();
-            String[] urlArray = reader.printAndReturnURLs(10); 
+            String[] urlArray = reader.printAndReturnURLs(100000); 
 
             int totalUrls = urlArray.length;
             System.out.println("\n=======================================");

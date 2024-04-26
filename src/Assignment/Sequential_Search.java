@@ -18,7 +18,7 @@ public class Sequential_Search {
 
         try {
             CSVReader reader = new CSVReader();
-            readAndPrintURLs(reader.getFilePath(), 10);
+            readAndPrintURLs(reader.getFilePath(), 100000);
 
             int totalUrls = urlCount();
             System.out.println("\n=======================================");
@@ -148,7 +148,7 @@ public class Sequential_Search {
     private static int searchByUrlArray(String searchTerm, String[] urlArray) {
         for (int i = 0; i < urlArray.length; i++) {
             if (urlArray[i].equals(searchTerm)) {
-                return i ; 
+                return i+1 ; 
             }
         }
         return -1; // URL not found

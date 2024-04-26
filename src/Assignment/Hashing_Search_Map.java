@@ -11,7 +11,7 @@ public class Hashing_Search_Map {
 
     	 try {
     	        CSVReader reader = new CSVReader();
-    	        Map<String, String> map = reader.readData(1000); 
+    	        Map<String, String> map = reader.readData(100000); 
 
     	        // Displaying the URLs
     	        System.out.println("==================================");
@@ -40,7 +40,7 @@ public class Hashing_Search_Map {
         int timeToSearch = 0;
 
         do {
-            timeToSearch++;
+            
             try {
                 System.out.print("\nKindly enter the URL index to retrieve (enter -1 to terminate): ");
                 int index = sc.nextInt();
@@ -64,6 +64,7 @@ public class Hashing_Search_Map {
                         System.out.println("URL          : " + value);
                         System.out.println("Elapsed Time : " + elapsedTimeHash + " ns");
                         System.out.println("===========================================================");
+                        timeToSearch++;
                     }
                 }
             } catch (InputMismatchException e) {

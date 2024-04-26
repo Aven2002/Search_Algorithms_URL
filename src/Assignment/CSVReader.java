@@ -77,8 +77,6 @@ public class CSVReader {
         Map<String, String> urlMap = new LinkedHashMap<>(); // LinkedHashMap to preserve insertion order
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            // Skip the first line (title)
-            reader.readLine();
 
             String line;
             int count = 1;

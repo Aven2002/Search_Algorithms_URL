@@ -18,7 +18,7 @@ public class Binary_Search {
 
         try {
             CSVReader reader = new CSVReader();
-            readAndPrintURLs(reader.getFilePath(),10);
+            readAndPrintURLs(reader.getFilePath(),100000);
 
             int totalUrls = urlCount();
             System.out.println("\n=======================================");
