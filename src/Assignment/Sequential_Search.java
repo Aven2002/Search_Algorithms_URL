@@ -120,7 +120,7 @@ public class Sequential_Search {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
             String line;
-            int count = 1;
+            int count = 0;
             System.out.println("\n==================================");
             System.out.println("          Index\tURL");
             System.out.println("==================================");
