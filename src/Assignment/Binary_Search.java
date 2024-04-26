@@ -40,6 +40,7 @@ public class Binary_Search {
                     targetUrl = scanner.nextLine();
                     if (targetUrl.equalsIgnoreCase("exit")) {
                     	continueSearching = false;
+                    	break;
                     }   
                     position = searchInArray(targetUrl, urlArray);
                     if (position == -1) {
@@ -89,21 +90,27 @@ public class Binary_Search {
 
             } while (continueSearching);
             
-            long avgElapsedTimeArray = totalElapsedTimeArray / numSearches;
-            long avgElapsedTimeLinkedList = totalElapsedTimeLinkedList / numSearches;
-            
-            System.out.println("\n================================================================================================");
-            System.out.println(" Average time (Average Case)  ");
-            System.out.println("   Array         : " + avgElapsedTimeArray + " ns");
-            System.out.println("   Linked List   : " + avgElapsedTimeLinkedList + " ns\n");
-
-            System.out.println(" Max time (Worst Case) ");
-            System.out.println("   Array         : " + maxElapsedTimeArray + " ns");
-            System.out.println("   Linked List   : " + maxElapsedTimeLinkedList + " ns");
-            System.out.println("===============================================================================================\n");
+            if(numSearches>0) {
+	            long avgElapsedTimeArray = totalElapsedTimeArray / numSearches;
+	            long avgElapsedTimeLinkedList = totalElapsedTimeLinkedList / numSearches;
+	            
+	            System.out.println("\n================================================================================================");
+	            System.out.println(" Average time (Average Case)  ");
+	            System.out.println("   Array         : " + avgElapsedTimeArray + " ns");
+	            System.out.println("   Linked List   : " + avgElapsedTimeLinkedList + " ns\n");
+	
+	            System.out.println(" Max time (Worst Case) ");
+	            System.out.println("   Array         : " + maxElapsedTimeArray + " ns");
+	            System.out.println("   Linked List   : " + maxElapsedTimeLinkedList + " ns");
+	            System.out.println("===============================================================================================\n");
+	            
+            }else {
+                	System.out.println("\n================================");
+                    System.out.println("   No searches were performed.");
+                    System.out.println("=================================");
+                }
             System.out.println("Console terminated ......");
             scanner.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

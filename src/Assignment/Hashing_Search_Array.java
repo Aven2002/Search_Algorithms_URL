@@ -74,7 +74,7 @@ public class Hashing_Search_Array {
             System.out.println(" Max time (Worst Case)       : " + maxElapsedTimeHash + " ns");
             System.out.println("===============================================================================================\n");
         } else {
-        	System.out.println("\n===============================");
+        	System.out.println("\n================================");
             System.out.println("   No searches were performed.");
             System.out.println("=================================");
         }
