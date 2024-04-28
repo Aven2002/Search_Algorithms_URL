@@ -1,94 +1,62 @@
-package Assignment;
-
-import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Hashing_Search_Array {
 
     public static void main(String[] args) {
-        try {
-            CSVReader reader = new CSVReader();
-            String[] urlArray = reader.printAndReturnURLs(100000); 
+        Scanner scanner = new Scanner(System.in);
+        String[] hashTable = new String[100000]; // Size of the hash table
+        int totalUrls = 0;
 
-            int totalUrls = urlArray.length;
-            System.out.println("\n=======================================");
-            System.out.println("         Total URLs: " + totalUrls);
-            System.out.println("=======================================\n");
-
-            // Search by hashing
-            searchByHashing(urlArray);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void searchByHashing(String[] urlArray) {
-        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter URLs (type 'exit' to finish):");
         String inputUrl;
-        boolean continueLoop = true;
-        long totalElapsedTimeHash = 0;
-        long maxElapsedTimeHash = 0;
-        int timeToSearch = 0;
 
-        do {
-            try {
-                System.out.print("\nKindly enter the URL to retrieve its position (enter 'exit' to terminate): ");
-                inputUrl = sc.nextLine();
-                if (inputUrl.equalsIgnoreCase("exit")) {
-                    continueLoop = false;
-                } else {
-                    int position = searchInArray(inputUrl, urlArray);
-                    if (position == -1) {
-                        System.out.println("\n=======================================================");
-                        System.out.println(" Error Message : The URL is not found in the data set");
-                        System.out.println("=======================================================\n");
-                    } else {
-                        long startTime = System.nanoTime();
-                        long endTime = System.nanoTime();
-                        long elapsedTimeHash = endTime - startTime; // Calculate elapsed time for this search
-
-                        totalElapsedTimeHash += elapsedTimeHash;
-                        maxElapsedTimeHash = Math.max(maxElapsedTimeHash, elapsedTimeHash);
-                        System.out.println("\n===========================================================");
-                        System.out.println("URL          : " + inputUrl);
-                        System.out.println("Position     : " + position);
-                        System.out.println("Elapsed Time : " + elapsedTimeHash + " ns");
-                        System.out.println("===========================================================");
-                        timeToSearch++;
-                    }
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("\n============================================");
-                System.out.println("   Error Message : Invalid Input Format !    ");
-                System.out.println("=============================================");
-                sc.nextLine();
+        while (true) {
+            inputUrl = scanner.nextLine();
+            if (inputUrl.equalsIgnoreCase("exit")) {
+                break;
             }
-        } while (continueLoop);
-
-        if (timeToSearch > 0) {
-            long avgElapsedTimeHash = totalElapsedTimeHash / timeToSearch;
-            System.out.println("\n================================================================================================");
-            System.out.println(" Search By Hashing\n");
-            System.out.println(" Average time (Average Case) : " + avgElapsedTimeHash + " ns");
-            System.out.println(" Max time (Worst Case)       : " + maxElapsedTimeHash + " ns");
-            System.out.println("===============================================================================================\n");
-        } else {
-        	System.out.println("\n================================");
-            System.out.println("   No searches were performed.");
-            System.out.println("=================================");
+            insertIntoHashTable(inputUrl, hashTable);
+            totalUrls++;
         }
 
-        System.out.println("Console terminated ......");
-        sc.close();
+        System.out.println("\n=======================================");
+        System.out.println("         Total URLs: " + totalUrls);
+        System.out.println("=======================================\n");
+
+        searchByHashing(scanner, hashTable);
+        scanner.close();
     }
-    
-    private static int searchInArray(String targetUrl, String[] urlArray) {
-        for (int i = 0; i < urlArray.length; i++) {
-            if (urlArray[i].equals(targetUrl)) {
-                return i + 1; // Position starts from 1
+
+    public static void insertIntoHashTable(String url, String[] hashTable) {
+        // Calculate hash index
+        int index = Math.abs(url.hashCode()) % hashTable.length;
+
+        // Linear probing for collision resolution
+        while (hashTable[index] != null) {
+            index = (index + 1) % hashTable.length;
+        }
+
+        hashTable[index] = url;
+    }
+
+    public static void searchByHashing(Scanner scanner, String[] hashTable) {
+        while (true) {
+            System.out.print("Enter URL to search (type 'exit' to finish): ");
+            String inputUrl = scanner.nextLine();
+            if (inputUrl.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            int index = Math.abs(inputUrl.hashCode()) % hashTable.length;
+            while (hashTable[index] != null && !hashTable[index].equals(inputUrl)) {
+                index = (index + 1) % hashTable.length;
+            }
+
+            if (hashTable[index] != null && hashTable[index].equals(inputUrl)) {
+                System.out.println("URL found at index " + index);
+            } else {
+                System.out.println("URL not found.");
             }
         }
-        return -1; // URL not found
     }
 }
